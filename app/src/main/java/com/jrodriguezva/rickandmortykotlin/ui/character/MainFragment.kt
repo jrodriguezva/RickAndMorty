@@ -1,4 +1,4 @@
-package com.jrodriguezva.rickandmortykotlin.ui.main
+package com.jrodriguezva.rickandmortykotlin.ui.character
 
 import android.os.Bundle
 import android.util.Log
@@ -7,10 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.jrodriguezva.rickandmortykotlin.R
-import com.jrodriguezva.rickandmortykotlin.com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.endless
-import com.jrodriguezva.rickandmortykotlin.com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.endless
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
 import com.jrodriguezva.rickandmortykotlin.databinding.MainFragmentBinding
-import com.jrodriguezva.rickandmortykotlin.ui.main.adapter.CharactersAdapter
+import com.jrodriguezva.rickandmortykotlin.ui.character.adapter.CharactersAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

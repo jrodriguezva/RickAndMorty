@@ -1,4 +1,4 @@
-package com.jrodriguezva.rickandmortykotlin.ui.main
+package com.jrodriguezva.rickandmortykotlin.ui.character
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jrodriguezva.rickandmortykotlin.R
-import com.jrodriguezva.rickandmortykotlin.com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.viewBinding
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.viewBinding
 import com.jrodriguezva.rickandmortykotlin.databinding.MainActivityBinding
 import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.jrodriguezva.rickandmortykotlin.ui.main.adapter
+package com.jrodriguezva.rickandmortykotlin.ui.character.adapter
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.jrodriguezva.rickandmortykotlin.R
-import com.jrodriguezva.rickandmortykotlin.com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.textColor
-import com.jrodriguezva.rickandmortykotlin.com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.themeColor
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.textColor
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.themeColor
 import com.jrodriguezva.rickandmortykotlin.databinding.ItemCharacterBinding
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Status

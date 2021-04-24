@@ -1,4 +1,4 @@
-package com.jrodriguezva.rickandmortykotlin.com.jrodriguezva.rickandmortykotlin.ui.utils.extensions
+package com.jrodriguezva.rickandmortykotlin.ui.utils.extensions
 
 import android.view.View
 import android.widget.TextView
