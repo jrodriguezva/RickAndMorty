@@ -8,6 +8,7 @@ data class Character(
     val gender: Gender,
     val origin: Location,
     val location: Location,
-    val image : String,
+    val image: String,
     val page: Int,
+    var favorite: Boolean,
 )

@@ -1,44 +1,42 @@
-package com.jrodriguezva.rickandmortykotlin.ui.main
+package com.jrodriguezva.rickandmortykotlin.ui.favorite
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.jrodriguezva.rickandmortykotlin.R
-import com.jrodriguezva.rickandmortykotlin.com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.endless
 import com.jrodriguezva.rickandmortykotlin.com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
-import com.jrodriguezva.rickandmortykotlin.databinding.MainFragmentBinding
+import com.jrodriguezva.rickandmortykotlin.databinding.FavoriteFragmentBinding
 import com.jrodriguezva.rickandmortykotlin.ui.main.adapter.CharactersAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class MainFragment : Fragment(R.layout.main_fragment) {
+class FavoriteFragment : Fragment(R.layout.favorite_fragment) {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: FavoriteViewModel by viewModels()
 
-    private var fragmentBinding: MainFragmentBinding? = null
+    private var fragmentBinding: FavoriteFragmentBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragmentBinding = MainFragmentBinding.bind(view)
-
+        fragmentBinding = FavoriteFragmentBinding.bind(view)
         val adapter = CharactersAdapter(viewModel::onClickFavorite)
 
         fragmentBinding?.run {
-
-            viewModel.spinner.onEach {
-                Log.d("TAG", "onViewCreated: $it")
-                progress.visible = it
+            viewModel.characters.onEach {
+                emptyViewVisibility(it.isEmpty())
+                adapter.submitList(it)
             }.launchIn(lifecycleScope)
-            viewModel.characters.onEach { adapter.submitList(it) }.launchIn(lifecycleScope)
-
-            recycler.endless { viewModel.getNextPage() }
             recycler.adapter = adapter
         }
+    }
+
+    private fun emptyViewVisibility(visible: Boolean) {
+        fragmentBinding?.emptyGroup?.visible = visible
+        fragmentBinding?.recycler?.visible = !visible
     }
 
     override fun onDestroyView() {
@@ -47,3 +45,4 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     }
 
 }
+

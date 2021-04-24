@@ -1,17 +1,30 @@
 package com.jrodriguezva.rickandmortykotlin.ui.main.adapter
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
+import android.view.animation.OvershootInterpolator
+import android.widget.ImageView
+import androidx.core.animation.doOnEnd
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.jrodriguezva.rickandmortykotlin.R
+import com.jrodriguezva.rickandmortykotlin.com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.textColor
+import com.jrodriguezva.rickandmortykotlin.com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.themeColor
 import com.jrodriguezva.rickandmortykotlin.databinding.ItemCharacterBinding
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
+import com.jrodriguezva.rickandmortykotlin.domain.model.Status
 
-class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharactersViewHolder>(diffCallback) {
+
+class CharactersAdapter(private val onClickFavorite: (Character) -> Unit) :
+    ListAdapter<Character, CharactersAdapter.CharactersViewHolder>(diffCallback) {
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
         holder.bindTo(getItem(position))
@@ -39,18 +52,79 @@ class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharactersVie
             binding.apply {
 
                 card.animation = AnimationUtils.loadAnimation(itemView.context, R.anim.down_to_up)
-                card.setOnClickListener {
-//                    val direction = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(
-//                        item.id.toInt()
-//                    )
-//                    binding.root.findNavController().navigate(direction)
+                favorite.setOnClickListener {
+                    item.favorite = !item.favorite
+                    startAnimation(favorite, item)
                 }
+                if (item.favorite)
+                    favorite.setColorFilter(
+                        ContextCompat.getColor(itemView.context, R.color.red_700),
+                        android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
+                else favorite.setColorFilter(
+                    ContextCompat.getColor(itemView.context, R.color.grey_700),
+                    android.graphics.PorterDuff.Mode.MULTIPLY
+                )
                 image.load(item.image)
                 title.text = item.name
-                date.text = item.id.toString()
+                status.text = item.status.name
+                when (item.status) {
+                    Status.ALIVE -> status.setTextColor(itemView.context.themeColor(R.attr.colorPrimary))
+                    Status.DEAD -> status.textColor(R.color.red_700)
+                    Status.UNKNOWN -> status.setTextColor(itemView.context.themeColor(R.attr.colorOnBackground))
+                }
             }
 
         }
+    }
+
+
+    private fun startAnimation(view: ImageView, character: Character) {
+        val rotationAnim = if (character.favorite) {
+            ObjectAnimator.ofFloat(view, "rotation", 0f, 360f)
+        } else {
+            ObjectAnimator.ofFloat(view, "rotation", 360f, 0f)
+        }.apply {
+            duration = 300
+            interpolator = AccelerateInterpolator()
+        }
+
+        val bounceAnimX = ObjectAnimator.ofFloat(view, "scaleX", 0.2f, 1f).apply {
+            duration = 300
+            interpolator = OvershootInterpolator()
+        }
+
+        val bounceAnimY = ObjectAnimator.ofFloat(view, "scaleY", 0.2f, 1f).apply {
+            duration = 300
+            interpolator = OvershootInterpolator()
+        }
+
+        val colorAnim = if (character.favorite) {
+            ObjectAnimator.ofArgb(
+                view, "colorFilter",
+                ContextCompat.getColor(view.context, R.color.grey_700),
+                ContextCompat.getColor(view.context, R.color.red_700)
+            )
+        } else {
+            ObjectAnimator.ofArgb(
+                view, "colorFilter",
+                ContextCompat.getColor(view.context, R.color.red_700),
+                ContextCompat.getColor(view.context, R.color.grey_700)
+            )
+        }.apply {
+            duration = 600
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        AnimatorSet().apply {
+            play(rotationAnim).with(colorAnim)
+            play(bounceAnimX).with(bounceAnimY).after(rotationAnim)
+            doOnEnd {
+                onClickFavorite(character)
+            }
+            start()
+        }
+
     }
 }
 

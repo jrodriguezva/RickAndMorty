@@ -34,4 +34,10 @@ class MainViewModel @Inject constructor(private val repository: RickAndMortyRepo
             }
         }
     }
+
+    fun onClickFavorite(character: Character) {
+        viewModelScope.launch {
+            repository.updateFavorite(character)
+        }
+    }
 }

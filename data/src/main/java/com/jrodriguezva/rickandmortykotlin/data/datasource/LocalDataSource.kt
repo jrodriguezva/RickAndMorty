@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {
     fun getCharacters(): Flow<List<Character>>
+    fun getCharacterFavorites(): Flow<List<Character>>
     suspend fun saveCharacters(characters: List<Character>)
     suspend fun getCharacter(id: Int): Character
 
@@ -13,4 +14,5 @@ interface LocalDataSource {
     suspend fun saveLocations(locations: List<Location>)
     suspend fun getLastPage(): Int
     fun getCharacters(page: Int): Flow<List<Character>>
+    suspend fun updateCharacter(character: Character)
 }

@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.jrodriguezva.rickandmortykotlin.ui.main.MainFragment"
+        android:name="com.jrodriguezva.rickandmortykotlin.ui.favorite.FavoriteFragment"
         android:label="@string/favorites"
         tools:layout="@layout/favorite_fragment" />
 </navigation>

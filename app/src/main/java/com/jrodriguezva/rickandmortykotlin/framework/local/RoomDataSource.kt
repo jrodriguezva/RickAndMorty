@@ -14,8 +14,15 @@ class RoomDataSource(db: RickAndMortyDatabase) : LocalDataSource {
     override fun getCharacters(): Flow<List<Character>> =
         characterDao.getAll().map { characters -> characters.map { it.toDomain() } }
 
+    override suspend fun updateCharacter(character: Character) {
+        characterDao.update(character.toRoom())
+    }
+
     override fun getCharacters(page: Int): Flow<List<Character>> =
         characterDao.getCharacterByPage(page).map { characters -> characters.map { it.toDomain() } }
+
+    override fun getCharacterFavorites(): Flow<List<Character>> =
+        characterDao.getFavorites().map { characters -> characters.map { it.toDomain() } }
 
 
     override suspend fun saveCharacters(characters: List<Character>) {

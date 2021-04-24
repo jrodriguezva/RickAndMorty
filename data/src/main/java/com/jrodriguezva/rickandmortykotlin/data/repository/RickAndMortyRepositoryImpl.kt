@@ -13,18 +13,17 @@ class RickAndMortyRepositoryImpl constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : RickAndMortyRepository {
-    override fun getCharacters(): Flow<List<Character>> {
-        return localDataSource.getCharacters()
-    }
+    override fun getCharacters(): Flow<List<Character>> = localDataSource.getCharacters()
+
 
     override fun getCharactersLastKnownLocation(): Flow<List<Location>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun checkRequireNewPage(fromInit: Boolean) = flow {
-        emit(Resource.Loading)
         val page = localDataSource.getLastPage() + 1
         if (!fromInit || page == 1) {
+            emit(Resource.Loading)
             when (val characters = remoteDataSource.getCharacters(page)) {
                 is Resource.Success -> {
                     localDataSource.saveCharacters(characters.data)
@@ -35,7 +34,14 @@ class RickAndMortyRepositoryImpl constructor(
         }
     }
 
+    override suspend  fun updateFavorite(character: Character) {
+        localDataSource.updateCharacter(character)
+    }
+
     override suspend fun getCharacter(id: Int) {
         TODO("Not yet implemented")
     }
+
+    override fun getCharacterFavorites(): Flow<List<Character>> = localDataSource.getCharacterFavorites()
+
 }

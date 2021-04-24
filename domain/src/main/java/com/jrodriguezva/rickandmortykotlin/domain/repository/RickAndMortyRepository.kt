@@ -10,4 +10,6 @@ interface RickAndMortyRepository {
     fun getCharactersLastKnownLocation(): Flow<List<Location>>
     suspend fun checkRequireNewPage(fromInit: Boolean): Flow<Resource<List<Character>>>
     suspend fun getCharacter(id: Int)
+    fun getCharacterFavorites(): Flow<List<Character>>
+    suspend fun updateFavorite(character: Character)
 }

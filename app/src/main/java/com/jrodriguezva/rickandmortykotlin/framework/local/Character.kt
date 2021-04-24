@@ -18,5 +18,6 @@ data class Character(
     @Embedded(prefix = "location_")
     val location: Location,
     val image: String,
-    val page: Int
+    val page: Int,
+    val favorite: Boolean
 )

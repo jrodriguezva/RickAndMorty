@@ -2,4 +2,8 @@
     <string name="app_name">RickAndMortyKotlin</string>
     <string name="favorites">Favorites</string>
     <string name="characters">Characters</string>
+    <string name="empty_favorite">You have not selected any favorite characters yet</string>
+    <string name="character_image">Character image</string>
+    <string name="favorite_icon">Favorite icon</string>
+    <string name="empty_favorite_image">Empty favorite image</string>
 </resources>

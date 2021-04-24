@@ -17,7 +17,8 @@ fun CharacterDto.toDomain() = Character(
     origin.toDomain(),
     location.toDomain(),
     image,
-    page
+    page,
+    favorite
 )
 
 fun LocationDto.toDomain() = Location(id, name, type, dimension)
@@ -32,7 +33,8 @@ fun Character.toRoom() = CharacterDto(
     origin.toRoom(),
     location.toRoom(),
     image,
-    page
+    page,
+    favorite
 )
 
 fun Location.toRoom() = LocationDto(id, name, type, dimension)
@@ -46,7 +48,8 @@ fun CharacterServer.toDomain(page: Int) = Character(
     origin.toDomain(),
     location.toDomain(),
     image,
-    page
+    page,
+    false
 )
 
 fun LocationServer.toDomain() = Location(url.substring(url.lastIndexOf("/") + 1).toIntOrNull() ?: 0, name)
