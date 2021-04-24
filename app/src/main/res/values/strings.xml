@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RickAndMortyKotlin</string>
+    <string name="favorites">Favorites</string>
+    <string name="characters">Characters</string>
+</resources>
