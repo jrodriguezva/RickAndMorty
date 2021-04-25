@@ -6,9 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.jrodriguezva.rickandmortykotlin.R
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
 import com.jrodriguezva.rickandmortykotlin.databinding.FavoriteFragmentBinding
-import com.jrodriguezva.rickandmortykotlin.ui.character.adapter.CharactersAdapter
+import com.jrodriguezva.rickandmortykotlin.ui.favorite.adapter.FavoriteCharactersAdapter
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -23,7 +23,7 @@ class FavoriteFragment : Fragment(R.layout.favorite_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentBinding = FavoriteFragmentBinding.bind(view)
-        val adapter = CharactersAdapter(viewModel::onClickFavorite)
+        val adapter = FavoriteCharactersAdapter(viewModel::onClickFavorite)
 
         fragmentBinding?.run {
             viewModel.characters.onEach {

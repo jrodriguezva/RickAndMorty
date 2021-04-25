@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_characters"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.jrodriguezva.rickandmortykotlin.ui.character.MainFragment"
+        android:label="@string/characters"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_detailCharacterFragment"
+            app:destination="@id/detailCharacterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailCharacterFragment"
+        android:name="com.jrodriguezva.rickandmortykotlin.ui.character.DetailCharacterFragment"
+        android:label="@string/character"
+        tools:layout="@layout/detail_character_fragment">
+        <argument
+            android:name="characterId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.jrodriguezva.rickandmortykotlin.ui.favorite.FavoriteFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/favorite_fragment" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailCharacterFragment"
+            app:destination="@id/detailCharacterFragment" />
+    </fragment>
+</navigation>

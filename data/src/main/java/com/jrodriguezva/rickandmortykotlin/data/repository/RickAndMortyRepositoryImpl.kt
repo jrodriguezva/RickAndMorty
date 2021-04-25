@@ -6,8 +6,12 @@ import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Location
 import com.jrodriguezva.rickandmortykotlin.domain.model.Resource
 import com.jrodriguezva.rickandmortykotlin.domain.repository.RickAndMortyRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 
 class RickAndMortyRepositoryImpl constructor(
     private val localDataSource: LocalDataSource,
@@ -16,11 +20,39 @@ class RickAndMortyRepositoryImpl constructor(
     override fun getCharacters(): Flow<List<Character>> = localDataSource.getCharacters()
 
 
-    override fun getCharactersLastKnownLocation(): Flow<List<Location>> {
-        TODO("Not yet implemented")
+    override fun getLastKnownLocation(locationId: Int) = flow {
+        emit(Resource.Loading)
+        when (val location = remoteDataSource.getLocation(locationId)) {
+            is Resource.Success -> {
+                localDataSource.saveLocation(location.data)
+                loadAllResident(location)
+                emit(location)
+            }
+            else -> emit(location)
+        }
     }
 
-    override suspend fun checkRequireNewPage(fromInit: Boolean) = flow {
+    override fun getCharactersLastKnownLocation(characterId: Int) =
+        localDataSource.getCharactersLastKnownLocation(characterId)
+
+    private suspend fun loadAllResident(location: Resource.Success<Location>) {
+        withContext(Dispatchers.IO) {
+            location.data.resident?.map {
+                async {
+                    if (localDataSource.getCharacter(it) == null) {
+                        when (val characters = remoteDataSource.getCharacter(it)) {
+                            is Resource.Success -> {
+                                localDataSource.saveCharacter(characters.data)
+                            }
+                        }
+                    }
+                }
+            }?.awaitAll()
+        }
+    }
+
+
+    override fun checkRequireNewPage(fromInit: Boolean) = flow {
         val page = localDataSource.getLastPage() + 1
         if (!fromInit || page == 1) {
             emit(Resource.Loading)
@@ -34,13 +66,11 @@ class RickAndMortyRepositoryImpl constructor(
         }
     }
 
-    override suspend  fun updateFavorite(character: Character) {
+    override suspend fun updateFavorite(character: Character) {
         localDataSource.updateCharacter(character)
     }
 
-    override suspend fun getCharacter(id: Int) {
-        TODO("Not yet implemented")
-    }
+    override fun getCharacter(characterId: Int): Flow<Character> = localDataSource.getCharacterFlow(characterId)
 
     override fun getCharacterFavorites(): Flow<List<Character>> = localDataSource.getCharacterFavorites()
 

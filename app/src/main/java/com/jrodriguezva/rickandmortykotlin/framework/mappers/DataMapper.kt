@@ -1,5 +1,6 @@
 package com.jrodriguezva.rickandmortykotlin.framework.mappers
 
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.getIdFromUrl
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Location
 import java.util.Locale
@@ -9,7 +10,7 @@ import com.jrodriguezva.rickandmortykotlin.framework.network.Character as Charac
 import com.jrodriguezva.rickandmortykotlin.framework.network.Location as LocationServer
 
 fun CharacterDto.toDomain() = Character(
-    id,
+    characterId,
     name,
     enumValueOf(status.name),
     species,
@@ -21,7 +22,7 @@ fun CharacterDto.toDomain() = Character(
     favorite
 )
 
-fun LocationDto.toDomain() = Location(id, name, type, dimension)
+fun LocationDto.toDomain() = Location(locationId, name, type, dimension)
 
 
 fun Character.toRoom() = CharacterDto(
@@ -39,7 +40,7 @@ fun Character.toRoom() = CharacterDto(
 
 fun Location.toRoom() = LocationDto(id, name, type, dimension)
 
-fun CharacterServer.toDomain(page: Int) = Character(
+fun CharacterServer.toDomain(page: Int? = null) = Character(
     id,
     name,
     enumValueOf(status.toUpperCase(Locale.getDefault())),
@@ -52,4 +53,4 @@ fun CharacterServer.toDomain(page: Int) = Character(
     false
 )
 
-fun LocationServer.toDomain() = Location(url.substring(url.lastIndexOf("/") + 1).toIntOrNull() ?: 0, name)
+fun LocationServer.toDomain() = Location(url.getIdFromUrl(), name, type, dimension, residents.map { it.getIdFromUrl() })

@@ -2,42 +2,35 @@ package com.jrodriguezva.rickandmortykotlin.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
-import androidx.navigation.NavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.jrodriguezva.rickandmortykotlin.R
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.viewBinding
 import com.jrodriguezva.rickandmortykotlin.databinding.MainActivityBinding
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.setupWithNavController
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.viewBinding
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by viewBinding(MainActivityBinding::inflate)
-    private var currentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        if (savedInstanceState == null) {
-            setupBottomNavigationBar()
-        }
+        setupViews()
     }
 
-    private fun setupBottomNavigationBar() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
-        val navGraphIds = listOf(R.navigation.nav_graph_characters, R.navigation.nav_graph_favorites)
-
-        val controller = bottomNavigationView.setupWithNavController(
-            navGraphIds = navGraphIds,
-            fragmentManager = supportFragmentManager,
-            containerId = R.id.nav_host_fragment,
-            intent = intent
-        )
-
-        currentNavController = controller
+    private fun setupViews() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        NavigationUI.setupWithNavController(binding.bottomNav, navHostFragment.navController)
+        binding.bottomNav.setupWithNavController(navController)
     }
+
+    fun visibilityBottomNavigation(visible: Boolean) {
+        binding.bottomNav.visible = visible
+    }
+
 }

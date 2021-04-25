@@ -16,14 +16,30 @@
         <item name="textAppearanceCaption">@style/TextAppearance.MyTheme.Caption</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MyTheme.Overline</item>
 
-
+        <item name="android:windowContentTransitions">true</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">?android:attr/colorBackground</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">
+            ?android:attr/colorBackground
+        </item>
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">?attr/colorControlHighlight</item>
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">
+            ?attr/colorControlHighlight
+        </item>
+
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">@transition/change_image_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">@transition/change_image_transform
+        </item>
     </style>
 
+    <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="TextAppearance.MyTheme.Headline4">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="TextAppearance.App.CollapsingToolbar.Collapsed" parent="TextAppearance.MyTheme.Headline5"/>
     <!-- Base application theme. -->
     <style name="Theme.RickAndMortyKotlin" parent="Base.Theme">
         <!-- Primary brand color. -->

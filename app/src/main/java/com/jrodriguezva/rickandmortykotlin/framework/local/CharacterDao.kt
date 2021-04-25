@@ -21,10 +21,22 @@ interface CharacterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCharacter(characters: List<Character>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(character: Character)
+
     @Query("SELECT IFNULL(MAX(page),0) FROM character")
     suspend fun getLastPage(): Int
 
     @Update
     suspend fun update(toRoom: Character)
+
+    @Query("SELECT * FROM character WHERE characterId = :characterId")
+    fun getCharacterFlow(characterId: Int): Flow<Character>
+
+    @Query("SELECT * FROM character WHERE characterId = :characterId")
+    suspend fun getCharacter(characterId: Int): Character?
+
+    @Query("SELECT * FROM character WHERE location_locationId =  (SELECT location_locationId FROM character WHERE characterID = :characterID)")
+    fun getCharacterFromLocation(characterID: Int): Flow<List<Character>>
 
 }

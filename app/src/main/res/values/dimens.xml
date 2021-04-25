@@ -8,4 +8,6 @@
     <dimen name="margin_padding_size_large">24dp</dimen>
     <dimen name="margin_padding_size_xlarge">32dp</dimen>
     <dimen name="margin_padding_size_xxlarge">40dp</dimen>
+
+    <dimen name="app_bar_height">280dp</dimen>
 </resources>

@@ -6,11 +6,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.jrodriguezva.rickandmortykotlin.R
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.endless
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
 import com.jrodriguezva.rickandmortykotlin.databinding.MainFragmentBinding
 import com.jrodriguezva.rickandmortykotlin.ui.character.adapter.CharactersAdapter
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.endless
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -24,9 +25,10 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         fragmentBinding = MainFragmentBinding.bind(view)
 
-        val adapter = CharactersAdapter(viewModel::onClickFavorite)
+        val charactersAdapter = CharactersAdapter(viewModel::onClickFavorite)
 
         fragmentBinding?.run {
 
@@ -34,10 +36,15 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 Log.d("TAG", "onViewCreated: $it")
                 progress.visible = it
             }.launchIn(lifecycleScope)
-            viewModel.characters.onEach { adapter.submitList(it) }.launchIn(lifecycleScope)
 
-            recycler.endless { viewModel.getNextPage() }
-            recycler.adapter = adapter
+            viewModel.characters.onEach { charactersAdapter.submitList(it) }.launchIn(lifecycleScope)
+
+            recycler.apply {
+
+                endless { viewModel.getNextPage() }
+                adapter = charactersAdapter
+                charactersAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+            }
         }
     }
 

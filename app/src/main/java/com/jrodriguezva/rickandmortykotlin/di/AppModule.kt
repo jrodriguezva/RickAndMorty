@@ -18,7 +18,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideMovieRepository(
+    fun provideRepository(
         localDataSource: LocalDataSource,
         remoteDataSource: RemoteDataSource
     ): RickAndMortyRepository = RickAndMortyRepositoryImpl(localDataSource, remoteDataSource)

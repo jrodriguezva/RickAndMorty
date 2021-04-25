@@ -9,6 +9,6 @@ data class Character(
     val origin: Location,
     val location: Location,
     val image: String,
-    val page: Int,
+    val page: Int?,
     var favorite: Boolean,
 )

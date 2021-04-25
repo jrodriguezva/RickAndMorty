@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:statusBarScrim="?attr/colorPrimaryVariant">
+
+            <com.jrodriguezva.rickandmortykotlin.ui.utils.SquareImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/character_image"
+                android:fitsSystemWindows="false"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                tools:src="@drawable/rick_morty_empty" />
+
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/characterCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_padding_size_small"
+                android:layout_marginTop="@dimen/margin_padding_size_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progress">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_padding_size_medium"
+                    android:layout_marginVertical="@dimen/margin_padding_size_small">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="textStart"
+                        android:layout_marginEnd="@dimen/margin_padding_size_small"
+                        android:textAppearance="?attr/textAppearanceHeadline5"
+                        app:layout_constraintEnd_toStartOf="@+id/status"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@tools:sample/full_names" />
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_padding_size_medium"
+                        android:drawablePadding="@dimen/margin_padding_size_small"
+                        android:textAlignment="textStart"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        app:drawableStartCompat="@drawable/dot"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/name"
+                        tools:text="@tools:sample/first_names" />
+
+                    <TextView
+                        android:id="@+id/specie"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/margin_padding_size_small"
+                        android:textAlignment="textStart"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        app:layout_constraintEnd_toEndOf="@+id/status"
+                        app:layout_constraintStart_toStartOf="@+id/name"
+                        app:layout_constraintTop_toBottomOf="@+id/name"
+                        tools:text="@tools:sample/first_names" />
+
+                    <TextView
+                        android:id="@+id/gender"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/margin_padding_size_small"
+                        android:textAlignment="textStart"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        app:layout_constraintEnd_toEndOf="@+id/status"
+                        app:layout_constraintStart_toStartOf="@+id/name"
+                        app:layout_constraintTop_toBottomOf="@+id/specie"
+                        tools:text="@tools:sample/first_names" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/locationCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_padding_size_small"
+                android:layout_marginTop="@dimen/margin_padding_size_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/characterCard">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_padding_size_small">
+
+                    <TextView
+                        android:id="@+id/locationTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_padding_size_medium"
+                        android:text="@string/last_known_location"
+                        android:textAlignment="textStart"
+                        android:textAppearance="?attr/textAppearanceHeadline5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/locationName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_padding_size_medium"
+                        android:textAlignment="textStart"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/locationTitle"
+                        tools:text="@string/location" />
+
+                    <TextView
+                        android:id="@+id/dimension"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_padding_size_medium"
+                        android:textAlignment="textStart"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/locationName"
+                        tools:text="@string/location" />
+
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_padding_size_medium"
+                        android:textAlignment="textStart"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dimension"
+                        tools:text="@string/location" />
+
+                    <TextView
+                        android:id="@+id/locationCharacter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_padding_size_medium"
+                        android:text="@string/residents"
+                        android:textAlignment="textStart"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/type" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerPeople"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/locationCharacter"
+                        tools:listitem="@layout/item_character_location" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

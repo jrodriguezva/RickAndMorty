@@ -11,6 +11,10 @@ import kotlinx.coroutines.flow.map
 class RoomDataSource(db: RickAndMortyDatabase) : LocalDataSource {
 
     private val characterDao = db.characterDao()
+    override suspend fun saveCharacter(data: Character) {
+        characterDao.insert(data.toRoom())
+    }
+
     override fun getCharacters(): Flow<List<Character>> =
         characterDao.getAll().map { characters -> characters.map { it.toDomain() } }
 
@@ -29,17 +33,19 @@ class RoomDataSource(db: RickAndMortyDatabase) : LocalDataSource {
         characterDao.insertAllCharacter(characters.map { it.toRoom() })
     }
 
-    override suspend fun getCharacter(id: Int): Character {
-        TODO("Not yet implemented")
+    override fun getCharacterFromLocation(locationId: Int): Flow<List<Character>> =
+        characterDao.getCharacterFromLocation(locationId).map { characters -> characters.map { it.toDomain() } }
+
+    override fun getCharactersLastKnownLocation(idCharacter: Int): Flow<List<Character>> =
+        characterDao.getCharacterFromLocation(idCharacter).map { characters -> characters.map { it.toDomain() } }
+
+    override suspend fun saveLocation(locations: Location) {
+
     }
 
-    override fun getCharactersLastKnownLocation(idCharacter: Int): Flow<List<Location>> {
-        TODO("Not yet implemented")
-    }
+    override fun getCharacterFlow(characterId: Int): Flow<Character> = characterDao.getCharacterFlow(characterId).map { it.toDomain() }
 
-    override suspend fun saveLocations(locations: List<Location>) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getCharacter(characterId: Int): Character? = characterDao.getCharacter(characterId)?.toDomain()
 
     override suspend fun getLastPage(): Int = characterDao.getLastPage()
 

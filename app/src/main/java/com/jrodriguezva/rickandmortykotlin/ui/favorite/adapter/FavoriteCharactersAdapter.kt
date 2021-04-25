@@ -1,4 +1,4 @@
-package com.jrodriguezva.rickandmortykotlin.ui.character.adapter
+package com.jrodriguezva.rickandmortykotlin.ui.favorite.adapter
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -11,20 +11,22 @@ import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.jrodriguezva.rickandmortykotlin.R
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.textColor
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.themeColor
 import com.jrodriguezva.rickandmortykotlin.databinding.ItemCharacterBinding
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Status
+import com.jrodriguezva.rickandmortykotlin.ui.favorite.FavoriteFragmentDirections
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.textColor
+import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.themeColor
 
 
-class CharactersAdapter(private val onClickFavorite: (Character) -> Unit) :
-    ListAdapter<Character, CharactersAdapter.CharactersViewHolder>(diffCallback) {
+class FavoriteCharactersAdapter(private val onClickFavorite: (Character) -> Unit) :
+    ListAdapter<Character, FavoriteCharactersAdapter.CharactersViewHolder>(diffCallback) {
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
         holder.bindTo(getItem(position))
@@ -56,6 +58,11 @@ class CharactersAdapter(private val onClickFavorite: (Character) -> Unit) :
                     item.favorite = !item.favorite
                     startAnimation(favorite, item)
                 }
+                card.setOnClickListener {
+                    val direction = FavoriteFragmentDirections.actionFavoriteFragmentToDetailCharacterFragment(item.id)
+                    binding.root.findNavController().navigate(direction)
+                }
+
                 if (item.favorite)
                     favorite.setColorFilter(
                         ContextCompat.getColor(itemView.context, R.color.red_700),
@@ -65,7 +72,10 @@ class CharactersAdapter(private val onClickFavorite: (Character) -> Unit) :
                     ContextCompat.getColor(itemView.context, R.color.grey_700),
                     android.graphics.PorterDuff.Mode.MULTIPLY
                 )
-                image.load(item.image)
+                image.apply {
+                    transitionName = item.image
+                    load(item.image)
+                }
                 title.text = item.name
                 status.text = item.status.name
                 when (item.status) {

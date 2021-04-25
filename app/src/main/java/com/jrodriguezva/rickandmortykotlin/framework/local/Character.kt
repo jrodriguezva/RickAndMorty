@@ -1,14 +1,12 @@
 package com.jrodriguezva.rickandmortykotlin.framework.local
 
-import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "character")
 data class Character(
-    @ColumnInfo(name = "character_id")
-    @PrimaryKey val id: Int,
+    @PrimaryKey val characterId: Int,
     val name: String,
     val status: Status,
     val species: String,
@@ -18,6 +16,6 @@ data class Character(
     @Embedded(prefix = "location_")
     val location: Location,
     val image: String,
-    val page: Int,
+    val page: Int? = null,
     val favorite: Boolean
 )
