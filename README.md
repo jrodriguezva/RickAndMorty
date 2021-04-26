@@ -9,18 +9,18 @@ The app currently consists of 3 screens:
 - A character detail screen, in which after selecting one character from the list, the user can visualize detailed information from said character, like their name, description(if there is), comics or series.
 
 ## Libraries 🛠️
- - [Flow](https://developer.android.com/kotlin/flow)
- - [Dagger Hilt](https://dagger.dev/hilt/)
- - [Room](https://developer.android.com/training/data-storage/room)
- - [Coil](https://coil-kt.github.io/coil/)
- - [Android Jetpack](https://developer.android.com/jetpack)
- -- [Navigator](https://developer.android.com/guide/navigation/navigation-getting-started)
- -- [Livedata](https://developer.android.com/topic/libraries/architecture/livedata)
- -- [View Binding](https://developer.android.com/topic/libraries/view-binding)
- -- [Viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel)
- -- [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
- - [Moshi](https://github.com/square/moshi)
- - [Retrofit](https://square.github.io/retrofit/)
+- [Flow](https://developer.android.com/kotlin/flow)
+- [Dagger Hilt](https://dagger.dev/hilt/)
+- [Room](https://developer.android.com/training/data-storage/room)
+- [Coil](https://coil-kt.github.io/coil/)
+- [Android Jetpack](https://developer.android.com/jetpack)
+  - [Navigator](https://developer.android.com/guide/navigation/navigation-getting-started)
+  - [Livedata](https://developer.android.com/topic/libraries/architecture/livedata)
+  - [View Binding](https://developer.android.com/topic/libraries/view-binding)
+  - [Viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+  - [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
+- [Moshi](https://github.com/square/moshi)
+- [Retrofit](https://square.github.io/retrofit/)
 
 ## Structure 🎨
 - __App__:

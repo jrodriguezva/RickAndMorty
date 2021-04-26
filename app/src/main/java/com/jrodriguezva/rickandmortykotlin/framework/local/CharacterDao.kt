@@ -28,7 +28,7 @@ interface CharacterDao {
     suspend fun getLastPage(): Int
 
     @Update
-    suspend fun update(toRoom: Character)
+    suspend fun update(character: Character)
 
     @Query("SELECT * FROM character WHERE characterId = :characterId")
     fun getCharacterFlow(characterId: Int): Flow<Character>
