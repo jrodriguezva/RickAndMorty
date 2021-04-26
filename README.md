@@ -6,7 +6,8 @@ Application to test the Rick&Morty API, and test different libraries like the Je
 ## Screens 📱
 The app currently consists of 3 screens:
 - A list of characters screen, in which once the user enters de app, they can visualize a list of Rick&Morty characters taken from the API, and select one.
-- A character detail screen, in which after selecting one character from the list, the user can visualize detailed information from said character, like their name, description(if there is), comics or series.
+- A character detail screen, in which after selecting one character from the list, the user can visualize detailed information from said character, like their name, genre, and the last know location.
+- A list of favorite characters screen.
 
 ## Libraries 🛠️
 - [Flow](https://developer.android.com/kotlin/flow)
