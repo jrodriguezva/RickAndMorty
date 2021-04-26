@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.jrodriguezva.rickandmortykotlin.ui.character.MainFragment"
+        android:name="com.jrodriguezva.rickandmortykotlin.ui.main.MainFragment"
         android:label="@string/characters"
         tools:layout="@layout/main_fragment">
         <action

@@ -58,10 +58,33 @@ val testCharacters = listOf(
     ),
 )
 
-var location = Location(
+var testLocation = Location(
     id = 20,
     name = "Earth (Replacement Dimension)",
-    type ="Planet",
-    dimension= "Replacement Dimension",
+    type = "Planet",
+    dimension = "Replacement Dimension",
     resident = listOf(1, 2, 3, 4, 5)
+)
+
+
+var testLocations = listOf(
+    Location(
+        id = 1,
+        name = "Earth (C-137)",
+        type = "Planet",
+        dimension = "Dimension C-137",
+        resident = listOf(11, 12, 23, 45, 95)
+    ), Location(
+        id = 20,
+        name = "Earth (Replacement Dimension)",
+        type = "Planet",
+        dimension = "Replacement Dimension",
+        resident = listOf(1, 2, 3, 4, 5)
+    ), Location(
+        id = 6,
+        name = "Interdimensional Cable",
+        type = "TV",
+        dimension = "unknown",
+        resident = listOf(1, 12, 23, 4, 5)
+    ),
 )

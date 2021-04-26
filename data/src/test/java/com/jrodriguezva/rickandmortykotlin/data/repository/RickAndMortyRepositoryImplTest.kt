@@ -5,7 +5,7 @@ import com.jrodriguezva.rickandmortykotlin.data.datasource.RemoteDataSource
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Location
 import com.jrodriguezva.rickandmortykotlin.domain.model.Resource
-import com.jrodriguezva.rickandmortykotlin.testcore.CoroutineTestRule
+import com.jrodriguezva.rickandmortykotlin.testcore.BaseTest
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -17,20 +17,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.test.runBlockingTest
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeInstanceOf
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 
 @ExperimentalCoroutinesApi
-class RickAndMortyRepositoryImplTest {
-
-    @get:Rule
-    var coroutinesTestRule = CoroutineTestRule()
+class RickAndMortyRepositoryImplTest : BaseTest() {
 
     @MockK
     lateinit var localDataSource: LocalDataSource
@@ -61,7 +56,7 @@ class RickAndMortyRepositoryImplTest {
     }
 
     @Test
-    fun `getLastKnownLocation emit Failure if server fail`() = coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun `getLastKnownLocation emit Failure if server fail`() = runBlocking {
         val id = 1
         val failure: Resource.Failure = mockk()
 
@@ -76,7 +71,7 @@ class RickAndMortyRepositoryImplTest {
     }
 
     @Test
-    fun `getLastKnownLocation emit Resource if server fail`() = coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun `getLastKnownLocation emit Resource if response server is ok`() = runBlocking {
         val id = 1
         val location: Resource.Success<Location> = mockk()
         every { location.data } returns mockk()
@@ -91,6 +86,50 @@ class RickAndMortyRepositoryImplTest {
     }
 
     @Test
+    fun `getLastKnownLocation emit Resource if server is ok and not call getCharacter when all is in database`() =
+        runBlocking {
+            val id = 1
+            val location: Resource.Success<Location> = mockk()
+            every { location.data } returns mockk()
+            every { location.data.resident } returns listOf(1, 2)
+            coEvery { remoteDataSource.getLocation(id) } returns location
+            coEvery { localDataSource.getCharacter(any()) } returns mockk()
+
+            val result = repository.getLastKnownLocation(id).toList()
+
+            result[0] shouldBe Resource.Loading
+            result[1] shouldBe location
+            coVerify { localDataSource.saveLocation(any()) }
+            coVerify(exactly = 2) { localDataSource.getCharacter(any()) }
+            coVerify(exactly = 0) { localDataSource.saveCharacter(any()) }
+        }
+
+    @Test
+    fun `getLastKnownLocation emit Resource if server is ok and call getCharacter when is not in database`() =
+        runBlocking {
+            val id = 1
+            val location: Resource.Success<Location> = mockk()
+            every { location.data } returns mockk()
+            every { location.data.resident } returns listOf(1, 2)
+            coEvery { remoteDataSource.getLocation(id) } returns location
+            coEvery { localDataSource.getCharacter(any()) } returns null
+
+            val character: Resource.Success<Character> = mockk()
+            coEvery { character.data } returns mockk()
+
+            coEvery { remoteDataSource.getCharacter(any()) } returns character
+
+            val result = repository.getLastKnownLocation(id).toList()
+
+            result[0] shouldBe Resource.Loading
+            result[1] shouldBe location
+            coVerify { localDataSource.saveLocation(any()) }
+            coVerify(exactly = 2) { localDataSource.getCharacter(any()) }
+            coVerify(exactly = 2) { remoteDataSource.getCharacter(any()) }
+            coVerify(exactly = 2) { localDataSource.saveCharacter(any()) }
+        }
+
+    @Test
     fun getCharactersLastKnownLocation() {
         coEvery { localDataSource.getCharactersLastKnownLocation(any()) } returns mockk()
         repository.getCharactersLastKnownLocation(1)
@@ -102,7 +141,7 @@ class RickAndMortyRepositoryImplTest {
 
     @Test
     fun `checkRequireNewPage call server if fromInit is true and page is 1`() =
-        coroutinesTestRule.testDispatcher.runBlockingTest {
+        runBlocking {
             val listCharacters: Resource.Success<List<Character>> = mockk()
 
             coEvery { localDataSource.getLastPage() } returns 0
@@ -123,7 +162,26 @@ class RickAndMortyRepositoryImplTest {
         }
 
     @Test
-    fun updateFavorite() = coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun `checkRequireNewPage emit error if server fail`() =
+        runBlocking {
+            val listCharacters: Resource.Failure = mockk()
+
+            coEvery { localDataSource.getLastPage() } returns 0
+            coEvery { remoteDataSource.getCharacters(1) } returns listCharacters
+
+            val result = repository.checkRequireNewPage(true).toList()
+
+            coVerify {
+                remoteDataSource.getCharacters(1)
+            }
+
+            result.size shouldBeEqualTo 2
+            result[0] shouldBeInstanceOf Resource.Loading::class
+            result[1] shouldBeInstanceOf Resource.Failure::class
+        }
+
+    @Test
+    fun updateFavorite() = runBlocking {
         val character: Character = mockk()
 
         repository.updateFavorite(character)
@@ -134,7 +192,7 @@ class RickAndMortyRepositoryImplTest {
     }
 
     @Test
-    fun getCharacters() = coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun getCharacters() = runBlocking {
 
         val character: Character = mockk()
         val listCharacters: List<Character> = listOf(character, character)
@@ -152,7 +210,7 @@ class RickAndMortyRepositoryImplTest {
     }
 
     @Test
-    fun getCharacterFavorites() = coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun getCharacterFavorites() = runBlocking {
         val character: Character = mockk()
         val listCharacters: List<Character> = listOf(character, character)
 

@@ -4,7 +4,7 @@ import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Location
 import com.jrodriguezva.rickandmortykotlin.domain.model.Resource
 import com.jrodriguezva.rickandmortykotlin.domain.repository.RickAndMortyRepository
-import com.jrodriguezva.rickandmortykotlin.testcore.location
+import com.jrodriguezva.rickandmortykotlin.testcore.testLocation
 import com.jrodriguezva.rickandmortykotlin.testcore.testCharacters
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -13,7 +13,7 @@ class FakeRepository : RickAndMortyRepository {
     override fun getCharacters(): Flow<List<Character>> = flowOf(testCharacters)
 
 
-    override fun getLastKnownLocation(locationId: Int): Flow<Resource<Location>> = flowOf(Resource.Success(location))
+    override fun getLastKnownLocation(locationId: Int): Flow<Resource<Location>> = flowOf(Resource.Success(testLocation))
 
     override fun checkRequireNewPage(fromInit: Boolean): Flow<Resource<List<Character>>> =
         flowOf(Resource.Success(testCharacters))

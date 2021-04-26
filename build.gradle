@@ -7,6 +7,7 @@ buildscript {
     ext.mockk_version = "1.11.0"
     ext.junit_version = "4.13.2"
     ext.kluent_version = "1.65"
+    ext.jacoco_plugin_version = "0.8.6"
 
     repositories {
         google()
@@ -19,7 +20,11 @@ buildscript {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }
-
+subprojects {
+    afterEvaluate { project ->
+        project.apply from: '../gradle/jacoco.gradle'
+    }
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

@@ -30,8 +30,8 @@ class DetailViewModel @Inject constructor(
     val location: LiveData<Location> get() = _location
 
     val characterId: Int = savedStateHandle.get<Int>(CHARACTER_ID_SAVED_STATE_KEY) ?: 0
-    val character: Flow<Character> = repository.getCharacter(characterId)
-    val charactersLocation: Flow<List<Character>> = repository.getCharactersLastKnownLocation(characterId)
+    val character: Flow<Character> get() = repository.getCharacter(characterId)
+    val charactersLocation: Flow<List<Character>> get() = repository.getCharactersLastKnownLocation(characterId)
 
     fun getLastLocation(locationId: Int) {
         viewModelScope.launch {

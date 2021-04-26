@@ -1,4 +1,4 @@
-package com.jrodriguezva.rickandmortykotlin.ui.character.adapter
+package com.jrodriguezva.rickandmortykotlin.ui.main.adapter
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -20,7 +20,7 @@ import com.jrodriguezva.rickandmortykotlin.R
 import com.jrodriguezva.rickandmortykotlin.databinding.ItemCharacterBinding
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Status
-import com.jrodriguezva.rickandmortykotlin.ui.character.MainFragmentDirections
+import com.jrodriguezva.rickandmortykotlin.ui.main.MainFragmentDirections
 import com.jrodriguezva.rickandmortykotlin.utils.extensions.textColor
 import com.jrodriguezva.rickandmortykotlin.utils.extensions.themeColor
 
