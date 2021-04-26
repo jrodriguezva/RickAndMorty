@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jrodriguezva.rickandmortykotlin.R
 import com.jrodriguezva.rickandmortykotlin.databinding.MainFragmentBinding
 import com.jrodriguezva.rickandmortykotlin.ui.character.adapter.CharactersAdapter
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.endless
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.endless
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

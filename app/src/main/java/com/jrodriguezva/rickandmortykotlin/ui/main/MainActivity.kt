@@ -7,8 +7,8 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.jrodriguezva.rickandmortykotlin.R
 import com.jrodriguezva.rickandmortykotlin.databinding.MainActivityBinding
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.viewBinding
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.viewBinding
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

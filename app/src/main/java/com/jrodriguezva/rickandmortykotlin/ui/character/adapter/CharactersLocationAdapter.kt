@@ -10,8 +10,8 @@ import com.jrodriguezva.rickandmortykotlin.R
 import com.jrodriguezva.rickandmortykotlin.databinding.ItemCharacterLocationBinding
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Status
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.textColor
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.themeColor
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.textColor
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.themeColor
 
 
 class CharactersLocationAdapter : ListAdapter<Character, CharactersLocationAdapter.CharactersViewHolder>(diffCallback) {

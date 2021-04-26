@@ -1,4 +1,4 @@
-package com.jrodriguezva.rickandmortykotlin.ui.utils.handler
+package com.jrodriguezva.rickandmortykotlin.utils.handler
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager

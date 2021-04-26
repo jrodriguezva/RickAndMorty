@@ -17,10 +17,10 @@ import com.jrodriguezva.rickandmortykotlin.domain.model.Location
 import com.jrodriguezva.rickandmortykotlin.domain.model.Status
 import com.jrodriguezva.rickandmortykotlin.ui.character.adapter.CharactersLocationAdapter
 import com.jrodriguezva.rickandmortykotlin.ui.main.MainActivity
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.setTextViewDrawableColor
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.textColor
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.themeColor
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.setTextViewDrawableColor
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.textColor
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.themeColor
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

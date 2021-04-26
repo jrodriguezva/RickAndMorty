@@ -1,4 +1,4 @@
-package com.jrodriguezva.rickandmortykotlin.ui.utils.extensions
+package com.jrodriguezva.rickandmortykotlin.utils.extensions
 
 import android.content.res.ColorStateList
 import android.view.View
@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.jrodriguezva.rickandmortykotlin.ui.utils.handler.EndlessScroll
+import com.jrodriguezva.rickandmortykotlin.utils.handler.EndlessScroll
 
 
 var View.visible: Boolean

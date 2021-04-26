@@ -21,8 +21,8 @@ import com.jrodriguezva.rickandmortykotlin.databinding.ItemCharacterBinding
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Status
 import com.jrodriguezva.rickandmortykotlin.ui.favorite.FavoriteFragmentDirections
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.textColor
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.themeColor
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.textColor
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.themeColor
 
 
 class FavoriteCharactersAdapter(private val onClickFavorite: (Character) -> Unit) :

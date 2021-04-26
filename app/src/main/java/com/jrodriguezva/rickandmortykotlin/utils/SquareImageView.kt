@@ -1,4 +1,4 @@
-package com.jrodriguezva.rickandmortykotlin.ui.utils
+package com.jrodriguezva.rickandmortykotlin.utils
 
 import android.content.Context
 import android.util.AttributeSet

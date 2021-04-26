@@ -1,6 +1,6 @@
 package com.jrodriguezva.rickandmortykotlin.framework.mappers
 
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.getIdFromUrl
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.getIdFromUrl
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Location
 import java.util.Locale

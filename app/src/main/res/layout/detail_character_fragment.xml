@@ -23,7 +23,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:statusBarScrim="?attr/colorPrimaryVariant">
 
-            <com.jrodriguezva.rickandmortykotlin.ui.utils.SquareImageView
+            <com.jrodriguezva.rickandmortykotlin.utils.SquareImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

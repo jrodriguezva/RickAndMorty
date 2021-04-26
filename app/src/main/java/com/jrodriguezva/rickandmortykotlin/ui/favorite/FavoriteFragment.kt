@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.jrodriguezva.rickandmortykotlin.R
 import com.jrodriguezva.rickandmortykotlin.databinding.FavoriteFragmentBinding
 import com.jrodriguezva.rickandmortykotlin.ui.favorite.adapter.FavoriteCharactersAdapter
-import com.jrodriguezva.rickandmortykotlin.ui.utils.extensions.visible
+import com.jrodriguezva.rickandmortykotlin.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
