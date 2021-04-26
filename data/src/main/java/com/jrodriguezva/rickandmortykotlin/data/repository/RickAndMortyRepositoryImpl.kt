@@ -2,11 +2,12 @@ package com.jrodriguezva.rickandmortykotlin.data.repository
 
 import com.jrodriguezva.rickandmortykotlin.data.datasource.LocalDataSource
 import com.jrodriguezva.rickandmortykotlin.data.datasource.RemoteDataSource
+import com.jrodriguezva.rickandmortykotlin.domain.dispatcher.DefaultDispatcherProvider
+import com.jrodriguezva.rickandmortykotlin.domain.dispatcher.DispatcherProvider
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
 import com.jrodriguezva.rickandmortykotlin.domain.model.Location
 import com.jrodriguezva.rickandmortykotlin.domain.model.Resource
 import com.jrodriguezva.rickandmortykotlin.domain.repository.RickAndMortyRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
@@ -15,9 +16,11 @@ import kotlinx.coroutines.withContext
 
 class RickAndMortyRepositoryImpl constructor(
     private val localDataSource: LocalDataSource,
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val dispatcher: DispatcherProvider = DefaultDispatcherProvider()
 ) : RickAndMortyRepository {
-    override fun getCharacters(): Flow<List<Character>> = localDataSource.getCharacters()
+    override fun getCharacters(): Flow<List<Character>> =
+        localDataSource.getCharacters()
 
 
     override fun getLastKnownLocation(locationId: Int) = flow {
@@ -36,7 +39,7 @@ class RickAndMortyRepositoryImpl constructor(
         localDataSource.getCharactersLastKnownLocation(characterId)
 
     private suspend fun loadAllResident(location: Resource.Success<Location>) {
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             location.data.resident?.map {
                 async {
                     if (localDataSource.getCharacter(it) == null) {

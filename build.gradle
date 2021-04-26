@@ -4,6 +4,9 @@ buildscript {
     ext.kotlin_coroutine_version = "1.4.3"
     ext.hilt_version = "2.35"
     ext.nav_version = "2.3.5"
+    ext.mockk_version = "1.11.0"
+    ext.junit_version = "4.13.2"
+    ext.kluent_version = "1.65"
 
     repositories {
         google()
@@ -19,4 +22,9 @@ buildscript {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
