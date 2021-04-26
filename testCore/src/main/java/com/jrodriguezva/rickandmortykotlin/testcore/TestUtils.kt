@@ -57,3 +57,11 @@ val testCharacters = listOf(
         favorite = false
     ),
 )
+
+var location = Location(
+    id = 20,
+    name = "Earth (Replacement Dimension)",
+    type ="Planet",
+    dimension= "Replacement Dimension",
+    resident = listOf(1, 2, 3, 4, 5)
+)
