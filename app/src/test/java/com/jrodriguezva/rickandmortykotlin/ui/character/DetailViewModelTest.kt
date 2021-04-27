@@ -43,6 +43,8 @@ class DetailViewModelTest : BaseTest() {
         coEvery { repository.checkRequireNewPage(true) } returns flowOf(Resource.Loading)
         val savedStateHandle: SavedStateHandle = mockk()
         every { savedStateHandle.get<Int>(any()) } returns 1
+        coEvery { repository.getCharacter(any()) } returns flowOf(testCharacter)
+        coEvery { repository.getCharactersLastKnownLocation(any()) } returns flowOf(testCharacters)
         viewModel = DetailViewModel(repository, savedStateHandle)
     }
 
