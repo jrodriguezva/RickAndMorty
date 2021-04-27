@@ -66,7 +66,6 @@ class MainActivityTest {
         .outerRule(hiltRule)
         .around(ActivityScenarioRule(MainActivity::class.java))
 
-
     @Test
     fun clickCharacter_OpensCharacterDetail() {
         onView(withId(R.id.recycler)).perform(

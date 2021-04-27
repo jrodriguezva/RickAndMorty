@@ -24,7 +24,6 @@ import com.jrodriguezva.rickandmortykotlin.ui.main.MainFragmentDirections
 import com.jrodriguezva.rickandmortykotlin.utils.extensions.textColor
 import com.jrodriguezva.rickandmortykotlin.utils.extensions.themeColor
 
-
 class CharactersAdapter(private val onClickFavorite: (Character) -> Unit) :
     ListAdapter<Character, CharactersAdapter.CharactersViewHolder>(diffCallback) {
 
@@ -32,19 +31,14 @@ class CharactersAdapter(private val onClickFavorite: (Character) -> Unit) :
         holder.bindTo(getItem(position))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
-        return CharactersViewHolder(ItemCharacterBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        CharactersViewHolder(ItemCharacterBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<Character>() {
-            override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
-                return oldItem.id == newItem.id
-            }
+            override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean = oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
-                return oldItem == newItem
-            }
+            override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean = oldItem == newItem
         }
     }
 
@@ -63,15 +57,17 @@ class CharactersAdapter(private val onClickFavorite: (Character) -> Unit) :
                     binding.root.findNavController().navigate(direction)
                 }
 
-                if (item.favorite)
+                if (item.favorite) {
                     favorite.setColorFilter(
                         ContextCompat.getColor(itemView.context, R.color.red_700),
                         android.graphics.PorterDuff.Mode.MULTIPLY
                     )
-                else favorite.setColorFilter(
-                    ContextCompat.getColor(itemView.context, R.color.grey_700),
-                    android.graphics.PorterDuff.Mode.MULTIPLY
-                )
+                } else {
+                    favorite.setColorFilter(
+                        ContextCompat.getColor(itemView.context, R.color.grey_700),
+                        android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
+                }
                 image.apply {
                     transitionName = item.image
                     load(item.image)
@@ -84,10 +80,8 @@ class CharactersAdapter(private val onClickFavorite: (Character) -> Unit) :
                     Status.UNKNOWN -> status.setTextColor(itemView.context.themeColor(R.attr.colorOnBackground))
                 }
             }
-
         }
     }
-
 
     private fun startAnimation(view: ImageView, character: Character) {
         val rotationAnim = if (character.favorite) {
@@ -134,7 +128,5 @@ class CharactersAdapter(private val onClickFavorite: (Character) -> Unit) :
             }
             start()
         }
-
     }
 }
-

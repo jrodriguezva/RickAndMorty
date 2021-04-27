@@ -23,7 +23,6 @@ import org.amshove.kluent.shouldBeInstanceOf
 import org.junit.Before
 import org.junit.Test
 
-
 @ExperimentalCoroutinesApi
 class RickAndMortyRepositoryImplTest : BaseTest() {
 
@@ -82,7 +81,6 @@ class RickAndMortyRepositoryImplTest : BaseTest() {
 
         result[0] shouldBe Resource.Loading
         result[1] shouldBe location
-        coVerify { localDataSource.saveLocation(any()) }
     }
 
     @Test
@@ -99,7 +97,6 @@ class RickAndMortyRepositoryImplTest : BaseTest() {
 
             result[0] shouldBe Resource.Loading
             result[1] shouldBe location
-            coVerify { localDataSource.saveLocation(any()) }
             coVerify(exactly = 2) { localDataSource.getCharacter(any()) }
             coVerify(exactly = 0) { localDataSource.saveCharacter(any()) }
         }
@@ -123,7 +120,6 @@ class RickAndMortyRepositoryImplTest : BaseTest() {
 
             result[0] shouldBe Resource.Loading
             result[1] shouldBe location
-            coVerify { localDataSource.saveLocation(any()) }
             coVerify(exactly = 2) { localDataSource.getCharacter(any()) }
             coVerify(exactly = 2) { remoteDataSource.getCharacter(any()) }
             coVerify(exactly = 2) { localDataSource.saveCharacter(any()) }

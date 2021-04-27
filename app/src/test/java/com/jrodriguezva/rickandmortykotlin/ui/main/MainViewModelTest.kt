@@ -38,7 +38,6 @@ class MainViewModelTest : BaseTest() {
         viewModel = MainViewModel(repository)
     }
 
-
     @Test
     fun `Listening to Flow emits the list from the server`() = runBlocking {
         coEvery { repository.getCharacters() } returns flowOf(testCharacters)

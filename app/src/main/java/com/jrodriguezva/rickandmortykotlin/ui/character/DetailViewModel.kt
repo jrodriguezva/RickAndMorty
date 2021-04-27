@@ -48,7 +48,6 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-
     fun onClickFavorite(character: Character) {
         viewModelScope.launch {
             repository.updateFavorite(character)

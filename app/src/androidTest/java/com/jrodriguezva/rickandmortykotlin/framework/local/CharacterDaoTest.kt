@@ -8,7 +8,6 @@ import com.jrodriguezva.rickandmortykotlin.framework.mappers.toRoom
 import com.jrodriguezva.rickandmortykotlin.testcore.testCharacter
 import com.jrodriguezva.rickandmortykotlin.testcore.testCharacters
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -79,7 +78,6 @@ class CharacterDaoTest {
         assertNotNull(byId)
         assertEquals(byId.size, 4)
     }
-
 
     @Test
     fun getAll() = runBlocking {

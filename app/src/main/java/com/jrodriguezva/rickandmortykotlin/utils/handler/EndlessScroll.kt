@@ -19,35 +19,28 @@ class EndlessScroll(
         if (this.recyclerView.scrollState == RecyclerView.SCROLL_STATE_IDLE) {
             return
         }
-        loading()
-    }
-
-    private fun loading() {
         with(recyclerView) {
-            val visibleItemCount = childCount
-            val totalItemCount = layoutManager?.itemCount ?: 0
-            val firstVisibleItem = when (layoutManager) {
+            when (layoutManager) {
                 is StaggeredGridLayoutManager -> {
                     val lastVisibleItemPositions =
                         (layoutManager as StaggeredGridLayoutManager).findLastVisibleItemPositions(null)
-                    getLastVisibleItem(lastVisibleItemPositions)
+                    loading(getLastVisibleItem(lastVisibleItemPositions))
                 }
-                is GridLayoutManager -> {
-                    (layoutManager as GridLayoutManager).findLastVisibleItemPosition()
-                }
-                is LinearLayoutManager -> {
-                    (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                }
-                else -> {
-                    0
-                }
-            }
+                is GridLayoutManager -> loading((layoutManager as GridLayoutManager).findLastVisibleItemPosition())
 
-            if (loading) {
-                if (totalItemCount > previousTotal) {
-                    loading = false
-                    previousTotal = totalItemCount
-                }
+                is LinearLayoutManager -> loading((layoutManager as LinearLayoutManager).findLastVisibleItemPosition())
+            }
+        }
+    }
+
+    private fun loading(firstVisibleItem: Int) {
+        with(recyclerView) {
+            val visibleItemCount = childCount
+            val totalItemCount = layoutManager?.itemCount ?: 0
+
+            if (loading && totalItemCount > previousTotal) {
+                loading = false
+                previousTotal = totalItemCount
             }
             if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                 loadMore()

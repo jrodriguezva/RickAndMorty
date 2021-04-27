@@ -3,7 +3,8 @@ package com.jrodriguezva.rickandmortykotlin.framework.network
 import android.Manifest
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
+import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.os.Build
 import androidx.annotation.RequiresPermission
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -15,18 +16,14 @@ class NetworkUtils @Inject constructor(@ApplicationContext private val context: 
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     fun isNetworkAvailable(): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val nw = connectivityManager.activeNetwork ?: return false
-            val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
-            return when {
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val actNw = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork) ?: return false
+            when {
+                actNw.hasTransport(TRANSPORT_WIFI) || actNw.hasTransport(TRANSPORT_CELLULAR) -> true
                 else -> false
             }
         } else {
-            return connectivityManager.activeNetworkInfo?.isConnected ?: false
+            connectivityManager.activeNetworkInfo?.isConnected ?: false
         }
     }
 }

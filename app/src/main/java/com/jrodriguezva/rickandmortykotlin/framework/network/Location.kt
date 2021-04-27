@@ -1,6 +1,5 @@
 package com.jrodriguezva.rickandmortykotlin.framework.network
 
-
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

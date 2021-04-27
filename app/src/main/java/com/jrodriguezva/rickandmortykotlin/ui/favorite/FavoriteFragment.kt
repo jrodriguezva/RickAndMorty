@@ -43,6 +43,4 @@ class FavoriteFragment : Fragment(R.layout.favorite_fragment) {
         fragmentBinding = null
         super.onDestroyView()
     }
-
 }
-

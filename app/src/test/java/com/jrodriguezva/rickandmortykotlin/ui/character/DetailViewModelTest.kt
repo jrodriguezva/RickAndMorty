@@ -84,7 +84,6 @@ class DetailViewModelTest : BaseTest() {
         }
     }
 
-
     @Test
     fun `location should be testLocation if server return success`() {
         coEvery {

@@ -12,15 +12,59 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.3"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.0.0"
     }
 }
+
+
+plugins {
+    id("io.gitlab.arturbosch.detekt").version("1.16.0")
+}
+
+allprojects{
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
+
+    ktlint {
+        // Version of ktlint cmd tool (Ktlint Gradle plugin is just a wrapper for this tool)
+        version = "0.41.0"
+        verbose = false
+        android = true
+
+        reporters {
+            reporter "checkstyle"
+        }
+
+        filter {
+            exclude { element -> element.file.path.contains("generated/") }
+        }
+    }
+
+}
+
+
 subprojects {
+    apply plugin: "io.gitlab.arturbosch.detekt"
+
+    detekt {
+        config = files("$rootDir/config/detekt/detekt.yml")
+
+        parallel = true
+
+        // By default detekt does not check test source set and gradle specific files, so hey have to be added manually
+        input = files(
+                "$rootDir/build.gradle",
+                "src/main/java",
+                "src/test/java"
+        )
+    }
+
     afterEvaluate { project ->
         project.apply from: '../gradle/jacoco.gradle'
     }
@@ -28,6 +72,7 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         jvmTarget = "1.8"

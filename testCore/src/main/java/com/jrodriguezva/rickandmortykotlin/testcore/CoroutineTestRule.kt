@@ -27,7 +27,6 @@ class CoroutineTestRule(
         Dispatchers.setMain(testDispatcher)
     }
 
-
     override fun finished(description: Description) {
         super.finished(description)
         Dispatchers.resetMain()

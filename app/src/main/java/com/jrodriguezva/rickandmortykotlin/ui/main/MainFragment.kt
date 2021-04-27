@@ -52,5 +52,4 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         fragmentBinding = null
         super.onDestroyView()
     }
-
 }

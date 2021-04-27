@@ -2,12 +2,12 @@ package com.jrodriguezva.rickandmortykotlin.framework.local
 
 import com.jrodriguezva.rickandmortykotlin.data.datasource.LocalDataSource
 import com.jrodriguezva.rickandmortykotlin.domain.model.Character
-import com.jrodriguezva.rickandmortykotlin.domain.model.Location
 import com.jrodriguezva.rickandmortykotlin.framework.mappers.toDomain
 import com.jrodriguezva.rickandmortykotlin.framework.mappers.toRoom
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
+@Suppress("TooManyFunctions")
 class RoomDataSource(db: RickAndMortyDatabase) : LocalDataSource {
 
     private val characterDao = db.characterDao()
@@ -28,7 +28,6 @@ class RoomDataSource(db: RickAndMortyDatabase) : LocalDataSource {
     override fun getCharacterFavorites(): Flow<List<Character>> =
         characterDao.getFavorites().map { characters -> characters.map { it.toDomain() } }
 
-
     override suspend fun saveCharacters(characters: List<Character>) {
         characterDao.insertAllCharacter(characters.map { it.toRoom() })
     }
@@ -39,14 +38,10 @@ class RoomDataSource(db: RickAndMortyDatabase) : LocalDataSource {
     override fun getCharactersLastKnownLocation(idCharacter: Int): Flow<List<Character>> =
         characterDao.getCharacterFromLocation(idCharacter).map { characters -> characters.map { it.toDomain() } }
 
-    override suspend fun saveLocation(locations: Location) {
-
-    }
-
-    override fun getCharacterFlow(characterId: Int): Flow<Character> = characterDao.getCharacterFlow(characterId).map { it.toDomain() }
+    override fun getCharacterFlow(characterId: Int): Flow<Character> =
+        characterDao.getCharacterFlow(characterId).map { it.toDomain() }
 
     override suspend fun getCharacter(characterId: Int): Character? = characterDao.getCharacter(characterId)?.toDomain()
 
     override suspend fun getLastPage(): Int = characterDao.getLastPage()
-
 }

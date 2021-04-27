@@ -5,7 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-
 interface RickAndMortyApi {
     @GET("api/character")
     suspend fun listCharacter(
@@ -21,5 +20,4 @@ interface RickAndMortyApi {
     suspend fun getCharacter(
         @Path("id") characterId: Int
     ): Response<Character>
-
 }

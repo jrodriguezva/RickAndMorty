@@ -19,5 +19,4 @@ class FavoriteViewModel @Inject constructor(private val repository: RickAndMorty
             repository.updateFavorite(character)
         }
     }
-
 }

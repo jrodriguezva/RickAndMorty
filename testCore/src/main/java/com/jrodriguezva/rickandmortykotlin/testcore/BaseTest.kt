@@ -6,7 +6,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 
 @ExperimentalCoroutinesApi
-abstract class BaseTest {
+open class BaseTest {
 
     @get:Rule
     var coroutinesTestRule = CoroutineTestRule()

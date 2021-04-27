@@ -8,6 +8,7 @@ import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
+@Suppress("ComplexInterface")
 interface CharacterDao {
     @Query("SELECT * FROM character")
     fun getAll(): Flow<List<Character>>
@@ -36,7 +37,11 @@ interface CharacterDao {
     @Query("SELECT * FROM character WHERE characterId = :characterId")
     suspend fun getCharacter(characterId: Int): Character?
 
-    @Query("SELECT * FROM character WHERE location_locationId =  (SELECT location_locationId FROM character WHERE characterID = :characterID)")
+    @Query(
+        """
+        SELECT * FROM character WHERE location_locationId = 
+        (SELECT location_locationId FROM character WHERE characterID = :characterID)
+                """
+    )
     fun getCharacterFromLocation(characterID: Int): Flow<List<Character>>
-
 }

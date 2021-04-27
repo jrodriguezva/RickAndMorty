@@ -44,5 +44,4 @@ object ServerModule {
     @Singleton
     fun provideRetrofitDataSource(retrofit: Retrofit, networkUtils: NetworkUtils): RemoteDataSource =
         RetrofitDataSource(retrofit.create(RickAndMortyApi::class.java), networkUtils)
-
 }

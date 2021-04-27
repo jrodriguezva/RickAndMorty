@@ -24,7 +24,6 @@ fun CharacterDto.toDomain() = Character(
 
 fun LocationDto.toDomain() = Location(locationId, name, type, dimension)
 
-
 fun Character.toRoom() = CharacterDto(
     id,
     name,

@@ -22,7 +22,6 @@ object RepositoryModule {
         remoteDataSource: RemoteDataSource
     ): RickAndMortyRepository = RickAndMortyRepositoryImpl(localDataSource, remoteDataSource)
 
-
     @Singleton
     @Provides
     fun provideIoDispatcher() = Dispatchers.IO

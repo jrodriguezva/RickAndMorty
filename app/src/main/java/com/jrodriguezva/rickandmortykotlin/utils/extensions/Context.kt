@@ -15,6 +15,6 @@ inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
 
 fun Context.themeColor(@AttrRes attrRes: Int): Int {
     val typedValue = TypedValue()
-    theme.resolveAttribute (attrRes, typedValue, true)
+    theme.resolveAttribute(attrRes, typedValue, true)
     return typedValue.data
 }

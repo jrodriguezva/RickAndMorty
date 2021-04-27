@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.flowOf
 class FakeRepository : RickAndMortyRepository {
     override fun getCharacters(): Flow<List<Character>> = flowOf(testCharacters)
 
-
     override fun getLastKnownLocation(locationId: Int): Flow<Resource<Location>> = flowOf(Resource.Success(testLocation))
 
     override fun checkRequireNewPage(fromInit: Boolean): Flow<Resource<List<Character>>> =
@@ -27,5 +26,4 @@ class FakeRepository : RickAndMortyRepository {
     override suspend fun updateFavorite(character: Character) {
         // Do nothing
     }
-
 }
