@@ -8,11 +8,11 @@ The app currently consists of 3 screens:
 - A list of characters screen, in which once the user enters de app, they can visualize a list of Rick&Morty characters taken from the API, and select one.
 - A character detail screen, in which after selecting one character from the list, the user can visualize detailed information from said character, like their name, genre, and the last know location.
 - A list of favorite characters screen.
+- Dark and Light themes 
 
 ## Libraries 🛠️
 - [Flow](https://developer.android.com/kotlin/flow)
 - [Dagger Hilt](https://dagger.dev/hilt/)
-- [Room](https://developer.android.com/training/data-storage/room)
 - [Coil](https://coil-kt.github.io/coil/)
 - [Android Jetpack](https://developer.android.com/jetpack)
   - [Navigator](https://developer.android.com/guide/navigation/navigation-getting-started)
@@ -20,8 +20,9 @@ The app currently consists of 3 screens:
   - [View Binding](https://developer.android.com/topic/libraries/view-binding)
   - [Viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel)
   - [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
-- [Moshi](https://github.com/square/moshi)
+  - [Room](https://developer.android.com/training/data-storage/room)
 - [Retrofit](https://square.github.io/retrofit/)
+- [Moshi](https://github.com/square/moshi)
 
 ## Structure 🎨
 - __App__:
@@ -34,10 +35,24 @@ The app currently consists of 3 screens:
    - __Repositories__: Repositories are responsible to coordinate data from the different Data Sources. A sort of abstraction for the data sources in order to avoid working directly with them. We make calls to them and we can ignore whether the data comes from the network or a local database.
 - __Domain__: Collection of entity objects and related business logic that is designed to represent the enterprise business model.
   - __Models__: an abstraction of the objects that represent the logic of the project.
+- __TestShared__: Collection of utilities to use in all test project
 
+## CI
+- [GitHub Actions](https://github.com/features/actions)
+- Automatic PR verification including tests, linters
+- All script are located in [.github/workflows](.github/workflows) folder.
+
+#### PR Verification
+
+Series of workflows runs (in parallel) for every PR to `main` branch:
+* `./gradlew lint` - runs Android lint - required to merge PR
+* `./gradlew detekt` - runs detekt - required to merge PR
+* `./gradlew ktlintCheck` - runs ktlint - optional to merge PR
+* `./gradlew test` - run unit tests - required to merge PR
+* `./gradlew connectedAndroidTest` - run UI tests - required to merge PR
 
 ## Testing 🧰 
-#### (There should totally be more tests, Work in project :construction:)
 - JUnit
 - [Mockk](https://mockk.io/)
 - [Kluent](https://markusamshove.github.io/Kluent/)
+- [Espresso](https://developer.android.com/training/testing/espresso)
