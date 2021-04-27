@@ -33,7 +33,7 @@ allprojects{
 
     ktlint {
         // Version of ktlint cmd tool (Ktlint Gradle plugin is just a wrapper for this tool)
-        version = "0.41.0"
+        version = "0.40.0"
         verbose = false
         android = true
 

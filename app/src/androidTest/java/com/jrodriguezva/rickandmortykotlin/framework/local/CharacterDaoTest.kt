@@ -75,8 +75,9 @@ class CharacterDaoTest {
 
         characterDao.insert(testCharacter.toRoom())
 
-        assertNotNull(byId)
-        assertEquals(byId.size, 4)
+        val byId2 = characterDao.getAll().first()
+        assertNotNull(byId2)
+        assertEquals(byId2.size, 4)
     }
 
     @Test
