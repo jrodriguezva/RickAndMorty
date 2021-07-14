@@ -8,7 +8,7 @@ data class Info(
     @Json(name = "count")
     val count: Int = 0,
     @Json(name = "next")
-    val next: String = "",
+    val next: String? = "",
     @Json(name = "pages")
     val pages: Int = 0,
     @Json(name = "prev")
