@@ -116,7 +116,7 @@ dependencies {
     def okhttp_version = "4.9.1"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
-    def coil_version = "1.2.0"
+    def coil_version = "1.2.2"
     implementation "io.coil-kt:coil:$coil_version"
 
     def nav_version = "2.3.5"
@@ -136,7 +136,7 @@ dependencies {
     testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.amshove.kluent:kluent:$kluent_version"
-    testImplementation 'app.cash.turbine:turbine:0.4.1'
+    testImplementation 'app.cash.turbine:turbine:0.5.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"

@@ -1,13 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.kotlin_version = "1.5.21"
-    ext.kotlin_coroutine_version = "1.4.3"
+    ext.kotlin_coroutine_version = "1.5.1"
     ext.hilt_version = "2.37"
     ext.nav_version = "2.3.5"
-    ext.mockk_version = "1.11.0"
+    ext.mockk_version = "1.12.0"
     ext.junit_version = "4.13.2"
-    ext.kluent_version = "1.65"
-    ext.jacoco_plugin_version = "0.8.6"
+    ext.kluent_version = "1.68"
+    ext.jacoco_plugin_version = "0.8.7"
 
     repositories {
         google()
@@ -18,12 +18,12 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.0.0"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.1.0"
     }
 }
 
 plugins {
-    id("io.gitlab.arturbosch.detekt").version("1.16.0")
+    id("io.gitlab.arturbosch.detekt").version("1.17.1")
 }
 
 allprojects{
@@ -31,7 +31,7 @@ allprojects{
 
     ktlint {
         // Version of ktlint cmd tool (Ktlint Gradle plugin is just a wrapper for this tool)
-        version = "0.40.0"
+        version = "0.41.0"
         verbose = false
         android = true
 
