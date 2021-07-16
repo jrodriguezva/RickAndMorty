@@ -73,7 +73,7 @@ class DetailCharacterFragment : Fragment(R.layout.detail_character_fragment) {
         name.text = it.name
         status.text = it.status.name
         specie.text = it.species
-        gender.text = it.gender.name.capitalize(Locale.getDefault())
+        gender.text = it.gender.name.replaceFirstChar { it.titlecase(Locale.getDefault()) }
         when (it.status) {
             Status.ALIVE -> {
                 status.setTextViewDrawableColor(requireContext().themeColor(R.attr.colorPrimary))

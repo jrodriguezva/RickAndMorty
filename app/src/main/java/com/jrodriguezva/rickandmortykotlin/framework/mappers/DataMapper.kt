@@ -42,9 +42,9 @@ fun Location.toRoom() = LocationDto(id, name, type, dimension)
 fun CharacterServer.toDomain(page: Int? = null) = Character(
     id,
     name,
-    enumValueOf(status.toUpperCase(Locale.getDefault())),
+    enumValueOf(status.uppercase(Locale.getDefault())),
     species,
-    enumValueOf(gender.toUpperCase(Locale.getDefault())),
+    enumValueOf(gender.uppercase(Locale.getDefault())),
     origin.toDomain(),
     location.toDomain(),
     image,
