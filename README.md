@@ -57,7 +57,8 @@ Series of workflows runs (in parallel) for every PR to `main` branch:
 * `./gradlew connectedAndroidTest` - run UI tests - required to merge PR
 
 ## Testing 🧪
-- JUnit
+- [JUnit](https://junit.org/junit4/)
 - [Mockk](https://mockk.io/)
 - [Kluent](https://markusamshove.github.io/Kluent/)
 - [Espresso](https://developer.android.com/training/testing/espresso)
+
