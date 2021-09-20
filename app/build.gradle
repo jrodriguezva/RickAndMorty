@@ -137,6 +137,7 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.amshove.kluent:kluent:$kluent_version"
     testImplementation 'app.cash.turbine:turbine:0.5.2'
+    androidTestImplementation 'org.hamcrest:hamcrest:2.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
